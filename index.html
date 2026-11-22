@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="tool">
+  <meta name="design-style" content="canopy">
+  <title>家鄉介紹勇士試煉 — 世界風情奇幻 RPG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&family=Noto+Sans+TC:wght@400;500;700;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Canopy base palette */
+      --background: #faf6ef;
+      --surface-container-low: #f0eae0;
+      --surface-container: #e8e0d2;
+      --surface-container-high: #ddd3c2;
+
+      --on-surface: #2a302b;
+      --on-surface-variant: #4a524b;
+
+      --outline: #737872;
+      --outline-variant: #cbc5b8;
+
+      --primary: #366948;
+      --on-primary: #ffffff;
+      --primary-container: #d8efe0;
+      --on-primary-container: #1f4d30;
+      --secondary: #5c635c;
+      --tertiary: #8f5822;
+      --tertiary-container: #f2d4a7;
+      --on-tertiary-container: #6e3f0c;
+      --error: #b83230;
+      --on-error: #ffffff;
+      --error-container: #fce4e2;
+      --on-error-container: #7c1f1e;
+
+      --data-1: #366948;
+      --data-2: #8f5822;
+      --data-3: #a85438;
+      --data-4: #4b6b78;
+      --data-context: #b5b0a3;
+
+      /* Fonts (Non-Latin first per design_foundation) */
+      --font-headline: 'Noto Sans TC', 'Literata', serif;
+      --font-body: 'Noto Sans TC', 'Nunito Sans', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
+
+      /* Shape */
+      --rounded: 0.625rem;
+      --rounded-lg: 1rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --shadow-soft: 0 4px 20px rgb(42 48 43 / 0.06);
+      --shadow-soft-hover: 0 8px 28px rgb(42 48 43 / 0.11);
+      --border-soft: 1px solid rgb(203 197 184 / 0.65);
+      --focus-glow: 0 0 0 4px rgb(54 105 72 / 0.22);
+
+      /* Semantic tokens */
+      --positive: #366948;
+      --warning: #b86c19;
+      --focus: #366948;
+
+      /* Type scale (tool) */
+      --display-size: clamp(1.65rem, 1.3rem + 1.2vw, 2.25rem);
+      --headline-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+      --label-size: 0.78rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+
+      /* Colored-pencil illustration tokens */
+      --pencil-ink: #3b2d26;
+      --pencil-ink-soft: #6e5849;
+      --paper-cream: #fcf7eb;
+      --sky-top: #d7ecf0;
+      --sky-mid: #eef5e5;
+      --sky-sun: #fff1c2;
+      --sun-glow: #f7d574;
+      --forest-far: #a5c39e;
+      --forest-mid: #6b9b6d;
+      --forest-deep: #3d6b47;
+      --leaf-bright: #8ec26c;
+      --meadow-light: #bad987;
+      --path-sand: #e7cfa8;
+      --path-edge: #c7a678;
+      --wood-light: #daa86e;
+      --wood-mid: #b67b45;
+      --wood-dark: #7a4b24;
+      --wood-wall: #f0d7b1;
+      --wood-wall-shade: #dfc093;
+      --lantern-glow: #ffe08a;
+      --mage-robe: #4f80c2;
+      --mage-robe-dark: #345b91;
+      --mage-hat: #6f56aa;
+      --mage-hat-dark: #4f3a82;
+      --mage-hat-band: #eab43a;
+      --mage-skin: #fde0c6;
+      --mage-blush: #f29a94;
+      --mage-hair: #73462f;
+      --wolf-fur: #8d9eb5;
+      --wolf-fur-dark: #5f6f87;
+      --wolf-belly: #ede9e0;
+      --wolf-scarf: #6ea85d;
+      --scorpion-body: #9d6ec4;
+      --scorpion-dark: #6d4592;
+      --scorpion-tail: #f09a36;
+      --oni-skin: #e46e54;
+      --oni-dark: #b34530;
+      --oni-horn: #f7e9c8;
+      --oni-cloth: #f0b942;
+      --dragon-scale: #e87d38;
+      --dragon-dark: #b5521d;
+      --dragon-wing: #f2b75c;
+      --dragon-belly: #fae1a7;
+      --dragon-fire: #ff6e42;
+      --demon-cloak: #5a3875;
+      --demon-armor: #38224e;
+      --demon-gold: #f2c34b;
+      --demon-eye: #ffd152;
+      --potion-red: #df4f5c;
+      --potion-red-dark: #b33240;
+      --potion-glass: #e3f4f8;
+      --crystal-blue: #5bb7e8;
+      --crystal-blue-dark: #2f85b8;
+      --crystal-purple: #9e76d6;
+      --talisman-paper: #fbe9bf;
+      --talisman-red: #d44d40;
+      --gold-coin: #f2bd38;
+      --gold-coin-edge: #c48b1a;
+      --hp-bar: #d9524c;
+      --hp-track: #e6d8cc;
+      --card-surface-overlay: rgb(250 246 239 / 0.92);
+      --card-surface-strong: rgb(252 247 235 / 0.96);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      letter-spacing: 0;
+    }
+
+    .app-shell {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: var(--space-md) var(--space-lg) var(--space-2xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .app-shell * { min-width: 0; }
+
+    /* Header Wooden Signboard & Progress */
+    .game-header {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .title-signboard-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .signboard-svg-box {
+      flex: 1 1 320px;
+      max-width: 520px;
+    }
+
+    .signboard-svg-box svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    /* Canopy Almanac-style Stage Trail */
+    .stage-strip {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .stage-strip-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--tertiary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .stage-nodes {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .stage-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      font-size: var(--label-size);
+      font-weight: 700;
+      background: var(--surface-container-high);
+      color: var(--secondary);
+      transition: transform var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+
+    .stage-pill.is-done {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .stage-pill.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* HUD Bar */
+    .hud-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .hud-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-xs);
+    }
+
+    .hud-card.is-leaf-highlight {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .hud-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hud-card.is-leaf-highlight .hud-label {
+      color: var(--on-primary-container);
+    }
+
+    .hud-value {
+      font-size: 1.25rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .hp-bar-track {
+      width: 100%;
+      height: 12px;
+      border-radius: var(--rounded-full);
+      background: var(--hp-track);
+      overflow: hidden;
+      border: 1.5px solid var(--pencil-ink);
+    }
+
+    .hp-bar-fill {
+      height: 100%;
+      border-radius: var(--rounded-full);
+      background: var(--hp-bar);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    .hp-bar-fill.is-healthy {
+      background: var(--primary);
+    }
+
+    .bag-pills {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .bag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-size: var(--label-size);
+      font-weight: 700;
+      border: 0;
+    }
+
+    .bag-chip-btn {
+      cursor: pointer;
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      min-height: 36px;
+      transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .bag-chip-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: var(--sun-glow);
+    }
+
+    .bag-chip-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded);
+      border: 0;
+      font-size: var(--body-size);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .btn:focus-visible,
+    .option-btn:focus-visible,
+    .bag-chip-btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+
+    .btn-warm {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+
+    .btn-warm:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: var(--sun-glow);
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: var(--space-xs) var(--space-md);
+      font-size: var(--label-size);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Scene Containers */
+    .scene-panel {
+      display: none;
+      gap: var(--space-md);
+    }
+    .scene-panel.is-visible {
+      display: grid;
+    }
+
+    /* Battle Arena */
+    .arena-frame {
+      position: relative;
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+      border: 2.5px solid var(--pencil-ink);
+      box-shadow: var(--shadow-soft);
+      background: var(--sky-mid);
+      min-height: 290px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .arena-bg-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .arena-top-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .combatant-banner {
+      background: var(--card-surface-overlay);
+      border: 2px solid var(--pencil-ink);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-md);
+      min-width: 195px;
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .combatant-banner-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .combatant-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      font-weight: 700;
+    }
+
+    .arena-stage-actors {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: var(--space-sm) var(--space-xl) var(--space-md);
+      gap: var(--space-md);
+      min-height: 215px;
+    }
+
+    .actor-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .actor-svg-wrap {
+      width: min(195px, 44vw);
+      height: auto;
+      transition: transform var(--dur-short) var(--ease-out), filter var(--dur-short) var(--ease-out);
+      transform-origin: bottom center;
+    }
+
+    .actor-svg-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .actor-svg-wrap.is-attack-right {
+      transform: translateX(34px) scale(1.06);
+    }
+
+    .actor-svg-wrap.is-attack-left {
+      transform: translateX(-34px) scale(1.06);
+    }
+
+    .actor-svg-wrap.is-hurt {
+      transform: translateX(-10px) rotate(-4deg);
+      filter: drop-shadow(0 0 8px var(--error));
+    }
+
+    .actor-svg-wrap.is-monster-hurt {
+      transform: translateX(12px) rotate(4deg);
+      filter: drop-shadow(0 0 10px var(--gold-coin));
+    }
+
+    .actor-svg-wrap.is-heal {
+      filter: drop-shadow(0 0 12px var(--primary));
+      transform: translateY(-6px) scale(1.04);
+    }
+
+    .floating-fx {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded-full);
+      font-weight: 900;
+      font-size: 1rem;
+      pointer-events: none;
+      opacity: 0;
+      border: 2px solid var(--pencil-ink);
+      background: var(--paper-cream);
+      color: var(--pencil-ink);
+      white-space: nowrap;
+      z-index: 4;
+      transition: transform var(--dur-long) var(--ease-out), opacity var(--dur-long) var(--ease-out);
+    }
+
+    .floating-fx.is-shown {
+      opacity: 1;
+      transform: translate(-50%, -22px);
+    }
+
+    .floating-fx.is-dmg {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+
+    .floating-fx.is-heal {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .floating-fx.is-player-dmg {
+      background: var(--error-container);
+      color: var(--on-error-container);
+    }
+
+    /* Quiz Card */
+    .quiz-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .quiz-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-size: var(--label-size);
+      font-weight: 700;
+    }
+
+    .question-text {
+      margin: 0;
+      font-size: var(--headline-size);
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--on-surface);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      width: 100%;
+      min-height: 54px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: 2px solid var(--outline-variant);
+      background: var(--paper-cream);
+      color: var(--on-surface);
+      font-size: var(--body-size);
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: transform var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      background: var(--primary-container);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-key {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .option-btn.is-correct {
+      background: var(--primary-container);
+      border-color: var(--primary);
+      color: var(--on-primary-container);
+    }
+
+    .option-btn.is-correct .option-key {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .option-btn.is-wrong {
+      background: var(--error-container);
+      border-color: var(--error);
+      color: var(--on-error-container);
+    }
+
+    .option-btn.is-wrong .option-key {
+      background: var(--error);
+      color: var(--on-error);
+    }
+
+    .feedback-box {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: 2px solid var(--primary);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .feedback-box.is-visible {
+      display: flex;
+    }
+
+    .feedback-box.is-error {
+      border-color: var(--error);
+      background: var(--error-container);
+      color: var(--on-error-container);
+    }
+
+    .feedback-box.is-revive {
+      border-color: var(--tertiary);
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+
+    .feedback-text {
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .feedback-title {
+      font-weight: 900;
+      font-size: 1.05rem;
+    }
+
+    /* Shop Scene */
+    .shop-stage {
+      position: relative;
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+      border: 2.5px solid var(--pencil-ink);
+      background: var(--wood-wall);
+      min-height: 220px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: end;
+      padding: var(--space-lg);
+      gap: var(--space-lg);
+    }
+
+    .shop-bg-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .shop-mage-wrap {
+      position: relative;
+      z-index: 2;
+      width: 135px;
+    }
+
+    .shop-mage-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .shop-welcome-bubble {
+      position: relative;
+      z-index: 2;
+      background: var(--card-surface-strong);
+      border: 2px solid var(--pencil-ink);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      align-self: center;
+    }
+
+    .shop-welcome-bubble h2 {
+      margin: 0;
+      font-size: var(--headline-size);
+      color: var(--tertiary);
+    }
+
+    .shop-welcome-bubble p {
+      margin: 0;
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .shop-item-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: space-between;
+      border: 2px solid var(--outline-variant);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .shop-item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+
+    .shop-item-top {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .item-icon-box {
+      width: 72px;
+      height: 72px;
+      flex: 0 0 auto;
+      background: var(--paper-cream);
+      border-radius: var(--rounded);
+      border: 2px solid var(--pencil-ink);
+      padding: var(--space-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-icon-box svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .item-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+
+    .item-owned {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .item-desc {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--on-surface-variant);
+    }
+
+    .shop-item-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+
+    .price-tag {
+      font-weight: 900;
+      color: var(--tertiary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .shop-actions-bar {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    /* Result / Settlement Scene */
+    .result-hero {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      border: 2.5px solid var(--pencil-ink);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-lg);
+      align-items: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .result-hero.is-victory {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .result-hero.is-defeat {
+      background: var(--error-container);
+      color: var(--on-error-container);
+    }
+
+    .result-avatar {
+      width: 140px;
+    }
+
+    .result-avatar svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .result-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .stat-tile {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .stat-tile-num {
+      font-size: 1.75rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+    }
+
+    .review-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .review-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .review-item {
+      background: var(--paper-cream);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border-left: 4px solid var(--tertiary);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    .review-answer {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .source-note {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-align: center;
+      padding-top: var(--space-sm);
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      .app-shell {
+        padding: var(--space-sm) var(--space-sm) var(--space-xl);
+      }
+      .hud-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      .arena-stage-actors {
+        padding: var(--space-sm) var(--space-md);
+        min-height: 175px;
+      }
+      .shop-stage {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+      .result-hero {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared Colored-Pencil SVG Filters & Texture Definitions (hidden sprite) -->
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+    <defs>
+      <!-- Hand-drawn colored-pencil contour jitter -->
+      <filter id="pencil-stroke" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="7" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <!-- Soft colored-pencil shading hatch pattern -->
+      <pattern id="pencil-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="var(--pencil-ink-soft)" stroke-width="0.9" stroke-opacity="0.12" />
+      </pattern>
+      <pattern id="wood-grain" width="24" height="10" patternUnits="userSpaceOnUse">
+        <path d="M0 3 Q12 1 24 3 M0 8 Q10 10 24 7" fill="none" stroke="var(--wood-dark)" stroke-width="0.9" stroke-opacity="0.24" />
+      </pattern>
+    </defs>
+  </svg>
+
+  <main class="app-shell">
+    <!-- Header with Hand-Drawn Wooden Title Signboard -->
+    <header class="game-header">
+      <div class="title-signboard-wrap">
+        <div class="signboard-svg-box" role="img" aria-label="家鄉介紹勇士試煉 遊戲標題牌">
+          <svg viewBox="0 0 540 104" xmlns="http://www.w3.org/2000/svg">
+            <!-- Hanging ropes -->
+            <path d="M90 0 L90 22 M450 0 L450 22" stroke="var(--pencil-ink)" stroke-width="4" stroke-linecap="round" />
+            <!-- Wooden plaque body -->
+            <g filter="url(#pencil-stroke)">
+              <rect x="16" y="16" width="508" height="78" rx="18" fill="var(--wood-light)" stroke="var(--pencil-ink)" stroke-width="3.5" />
+              <rect x="16" y="16" width="508" height="78" rx="18" fill="url(#wood-grain)" />
+              <!-- Inner parchment banner -->
+              <rect x="30" y="25" width="480" height="60" rx="12" fill="var(--paper-cream)" stroke="var(--wood-dark)" stroke-width="2.5" />
+            </g>
+            <!-- Cute corner leaves & rivets -->
+            <circle cx="46" cy="55" r="5" fill="var(--gold-coin)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <circle cx="494" cy="55" r="5" fill="var(--gold-coin)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <path d="M18 32 Q6 18 22 10 Q32 22 18 32 Z" fill="var(--leaf-bright)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <path d="M522 32 Q534 18 518 10 Q508 22 522 32 Z" fill="var(--leaf-bright)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <!-- Title text -->
+            <text x="270" y="57" text-anchor="middle" font-family="var(--font-headline)" font-size="29" font-weight="900" fill="var(--pencil-ink)">家鄉介紹勇士試煉</text>
+            <text x="270" y="77" text-anchor="middle" font-family="var(--font-body)" font-size="13" font-weight="700" fill="var(--tertiary)">國小四年級《世界風情速查》奇幻冒險練習</text>
+          </svg>
+        </div>
+
+        <div class="header-actions">
+          <button type="button" id="sound-toggle-btn" class="btn btn-secondary btn-sm" onclick="toggleSound()" aria-pressed="true">音效：開啟</button>
+          <button type="button" id="reset-game-btn" class="btn btn-warm btn-sm" onclick="handleResetClick(this)">重新冒險</button>
+        </div>
+      </div>
+
+      <!-- 5-Stage Journey Strip -->
+      <nav class="stage-strip" aria-label="試煉關卡進度">
+        <span class="stage-strip-title">試煉進度（共 5 關）</span>
+        <div class="stage-nodes" id="stage-nodes"></div>
+      </nav>
+    </header>
+
+    <!-- Player HUD -->
+    <section class="hud-grid" aria-label="冒險者狀態欄">
+      <div class="hud-card is-leaf-highlight">
+        <div class="hud-label">
+          <span>魔法師血量</span>
+          <span id="hud-hp-text">100 / 100</span>
+        </div>
+        <div class="hp-bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="hud-hp-bar-wrap">
+          <div class="hp-bar-fill is-healthy" id="hud-hp-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-label">
+          <span>魔法攻擊力</span>
+          <span id="hud-crystal-badge">水晶 +0</span>
+        </div>
+        <div class="hud-value" id="hud-atk-text">25 ATK</div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-label">
+          <span>冒險金幣</span>
+          <span id="hud-correct-text">答對 0 題</span>
+        </div>
+        <div class="hud-value">
+          <span id="hud-gold-text">0</span>
+          <span>金幣</span>
+        </div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-label">
+          <span>道具背包</span>
+          <span>點擊藥水可回血</span>
+        </div>
+        <div class="bag-pills">
+          <button type="button" id="use-potion-hud-btn" class="bag-chip bag-chip-btn" onclick="usePotion()" disabled>
+            <span>藥水 ×<span id="hud-potion-count">0</span></span>
+          </button>
+          <span class="bag-chip">復活符 ×<span id="hud-revive-count">0</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 1: BATTLE -->
+    <section id="scene-battle" class="scene-panel is-visible" aria-label="戰鬥關卡">
+      <div class="arena-frame">
+        <!-- Hand-Drawn Colored-Pencil Enchanted Forest Background -->
+        <svg class="arena-bg-svg" viewBox="0 0 960 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--sky-top)" />
+              <stop offset="55%" stop-color="var(--sky-mid)" />
+              <stop offset="100%" stop-color="var(--meadow-light)" />
+            </linearGradient>
+          </defs>
+          <rect width="960" height="340" fill="url(#forestSky)" />
+          <!-- Warm morning sunbeams -->
+          <circle cx="150" cy="70" r="46" fill="var(--sky-sun)" />
+          <circle cx="150" cy="70" r="68" fill="var(--sun-glow)" fill-opacity="0.28" />
+          <path d="M180 40 L480 260 L340 280 Z" fill="var(--sky-sun)" fill-opacity="0.25" />
+          <path d="M130 95 L290 290 L160 290 Z" fill="var(--sky-sun)" fill-opacity="0.2" />
+
+          <!-- Rolling hills -->
+          <path d="M0 210 Q180 155 390 205 T820 185 T960 215 L960 340 L0 340 Z" fill="var(--forest-far)" />
+          <path d="M0 235 Q240 190 480 230 T960 215 L960 340 L0 340 Z" fill="var(--forest-mid)" fill-opacity="0.65" />
+
+          <!-- Hand-drawn Forest Trees -->
+          <g filter="url(#pencil-stroke)" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linejoin="round">
+            <!-- Left trees -->
+            <rect x="42" y="135" width="26" height="120" rx="6" fill="var(--wood-mid)" />
+            <path d="M12 150 Q55 72 98 150 Q78 168 55 162 Q30 168 12 150 Z" fill="var(--forest-deep)" />
+            <path d="M22 115 Q55 52 88 115 Q68 128 40 124 Z" fill="var(--leaf-bright)" />
+
+            <rect x="130" y="160" width="18" height="86" rx="5" fill="var(--wood-dark)" />
+            <circle cx="139" cy="148" r="34" fill="var(--forest-mid)" />
+            <circle cx="127" cy="142" r="20" fill="var(--leaf-bright)" stroke="none" />
+
+            <!-- Right trees -->
+            <rect x="860" y="128" width="28" height="130" rx="6" fill="var(--wood-mid)" />
+            <path d="M826 146 Q874 62 922 146 Q896 164 874 158 Q848 164 826 146 Z" fill="var(--forest-deep)" />
+            <path d="M838 110 Q874 44 910 110 Q890 124 855 120 Z" fill="var(--leaf-bright)" />
+
+            <rect x="782" y="165" width="18" height="82" rx="5" fill="var(--wood-dark)" />
+            <circle cx="791" cy="150" r="32" fill="var(--forest-mid)" />
+          </g>
+
+          <!-- Meadow & Winding Dirt Path -->
+          <path d="M0 245 Q280 225 480 245 T960 238 L960 340 L0 340 Z" fill="var(--meadow-light)" stroke="var(--pencil-ink)" stroke-width="2" />
+          <path d="M0 245 Q280 225 480 245 T960 238 L960 340 L0 340 Z" fill="url(#pencil-hatch)" />
+          <ellipse cx="480" cy="306" rx="390" ry="38" fill="var(--path-sand)" stroke="var(--path-edge)" stroke-width="2" />
+
+          <!-- Cute hand-drawn mushrooms & wildflowers -->
+          <g filter="url(#pencil-stroke)" stroke="var(--pencil-ink)" stroke-width="2">
+            <rect x="72" y="280" width="9" height="16" rx="3" fill="var(--paper-cream)" />
+            <path d="M62 282 Q76 262 91 282 Z" fill="var(--oni-skin)" />
+            <circle cx="73" cy="275" r="2.2" fill="var(--paper-cream)" stroke="none" />
+            <circle cx="81" cy="277" r="1.8" fill="var(--paper-cream)" stroke="none" />
+
+            <rect x="880" y="274" width="10" height="18" rx="3" fill="var(--paper-cream)" />
+            <path d="M869 276 Q885 256 901 276 Z" fill="var(--scorpion-tail)" />
+            <circle cx="882" cy="269" r="2.2" fill="var(--paper-cream)" stroke="none" />
+
+            <circle cx="295" cy="264" r="4" fill="var(--sun-glow)" />
+            <circle cx="655" cy="261" r="4" fill="var(--mage-blush)" />
+            <circle cx="670" cy="268" r="3.5" fill="var(--sun-glow)" />
+          </g>
+
+          <!-- Gentle forest sparkles -->
+          <circle cx="340" cy="110" r="4" fill="var(--sky-sun)" />
+          <circle cx="495" cy="86" r="5" fill="var(--sky-sun)" />
+          <circle cx="635" cy="126" r="3.5" fill="var(--sky-sun)" />
+        </svg>
+
+        <!-- Actor Name & HP Banners -->
+        <div class="arena-top-bar">
+          <div class="combatant-banner">
+            <div class="combatant-banner-head">
+              <span>見習魔法師</span>
+              <span class="combatant-tag" id="arena-player-hp-label">100 / 100 HP</span>
+            </div>
+            <div class="hp-bar-track">
+              <div class="hp-bar-fill is-healthy" id="arena-player-hp-bar" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <div class="combatant-banner">
+            <div class="combatant-banner-head">
+              <span id="monster-name-label">第 1 關：調皮野狼</span>
+              <span class="combatant-tag" id="monster-hp-label">50 / 50 HP</span>
+            </div>
+            <div class="hp-bar-track">
+              <div class="hp-bar-fill" id="monster-hp-bar" style="width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actors Stage -->
+        <div class="arena-stage-actors">
+          <div class="actor-slot">
+            <div class="floating-fx" id="player-fx"></div>
+            <div class="actor-svg-wrap" id="mage-actor-wrap"></div>
+          </div>
+          <div class="actor-slot">
+            <div class="floating-fx" id="monster-fx"></div>
+            <div class="actor-svg-wrap" id="monster-actor-wrap"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Question Panel -->
+      <article class="quiz-card" aria-live="polite">
+        <div class="quiz-meta">
+          <span class="topic-badge" id="quiz-progress-badge">世界風情試煉 · 第 1 題</span>
+          <span class="combatant-tag" id="monster-atk-hint">怪物攻擊力：12 點</span>
+        </div>
+
+        <h2 class="question-text" id="question-text">題目載入中…</h2>
+
+        <div class="options-grid" id="options-grid"></div>
+
+        <div class="feedback-box" id="feedback-box">
+          <div class="feedback-text">
+            <div class="feedback-title" id="feedback-title"></div>
+            <div id="feedback-detail"></div>
+          </div>
+          <button type="button" class="btn btn-primary" id="next-turn-btn" onclick="advanceTurn()">下一回合 →</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- SCENE 2: WOODEN SHOP -->
+    <section id="scene-shop" class="scene-panel" aria-label="溫暖木造冒險商店">
+      <div class="shop-stage">
+        <!-- Hand-Drawn Colored-Pencil Warm Wooden Shop Background -->
+        <svg class="shop-bg-svg" viewBox="0 0 960 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="960" height="260" fill="var(--wood-wall)" />
+          <rect width="960" height="260" fill="url(#wood-grain)" />
+          <!-- Wooden ceiling beams -->
+          <g filter="url(#pencil-stroke)" stroke="var(--pencil-ink)" stroke-width="2.5">
+            <rect x="0" y="0" width="960" height="26" fill="var(--wood-dark)" />
+            <rect x="0" y="218" width="960" height="42" fill="var(--wood-mid)" />
+            <line x1="0" y1="218" x2="960" y2="218" stroke="var(--pencil-ink)" stroke-width="3" />
+            <!-- Left cozy window -->
+            <rect x="46" y="48" width="98" height="106" rx="12" fill="var(--sky-top)" />
+            <line x1="95" y1="48" x2="95" y2="154" stroke="var(--wood-dark)" stroke-width="4" />
+            <line x1="46" y1="101" x2="144" y2="101" stroke="var(--wood-dark)" stroke-width="4" />
+            <!-- Wooden shelf on right -->
+            <rect x="700" y="88" width="220" height="14" rx="4" fill="var(--wood-dark)" />
+            <!-- Little decorative jars on shelf -->
+            <rect x="726" y="56" width="22" height="32" rx="6" fill="var(--potion-glass)" />
+            <rect x="729" y="68" width="16" height="17" rx="3" fill="var(--potion-red)" stroke="none" />
+            <rect x="768" y="52" width="24" height="36" rx="7" fill="var(--potion-glass)" />
+            <rect x="771" y="64" width="18" height="21" rx="4" fill="var(--leaf-bright)" stroke="none" />
+            <polygon points="824,88 836,54 848,88" fill="var(--crystal-blue)" />
+            <rect x="868" y="60" width="28" height="28" rx="4" fill="var(--talisman-paper)" />
+            <!-- Hanging warm lanterns -->
+            <line x1="250" y1="26" x2="250" y2="48" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <circle cx="250" cy="60" r="14" fill="var(--lantern-glow)" />
+            <line x1="620" y1="26" x2="620" y2="48" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <circle cx="620" cy="60" r="14" fill="var(--lantern-glow)" />
+          </g>
+        </svg>
+
+        <div class="shop-mage-wrap" id="shop-mage-wrap"></div>
+
+        <div class="shop-welcome-bubble">
+          <h2 id="shop-title">恭喜通過第 1 關！歡迎來到森林木造商店</h2>
+          <p id="shop-subtitle">你可以用冒險金幣購買補給道具，準備迎接下一位強敵！</p>
+        </div>
+      </div>
+
+      <div class="shop-grid" id="shop-items-grid"></div>
+
+      <div class="shop-actions-bar">
+        <div>
+          <strong>目前狀態：</strong>
+          <span id="shop-status-summary">HP 100/100 · 25 ATK · 0 金幣</span>
+        </div>
+        <div class="header-actions">
+          <button type="button" id="shop-drink-potion-btn" class="btn btn-warm" onclick="usePotion()" disabled>喝一瓶回血藥水 (+45 HP)</button>
+          <button type="button" id="shop-next-stage-btn" class="btn btn-primary" onclick="enterNextStage()">出發挑戰下一關 →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3: VICTORY OR DEFEAT SETTLEMENT -->
+    <section id="scene-result" class="scene-panel" aria-label="冒險結算成績">
+      <div class="result-hero is-victory" id="result-hero">
+        <div class="result-avatar" id="result-avatar"></div>
+        <div>
+          <span class="topic-badge" id="result-badge">冒險稱號</span>
+          <h2 id="result-title" style="margin: var(--space-xs) 0;">試煉大成功！</h2>
+          <p id="result-desc" style="margin: 0;"></p>
+        </div>
+      </div>
+
+      <div class="result-stats-grid" id="result-stats-grid"></div>
+
+      <div class="review-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-sm);">
+          <h3 style="margin:0;">錯題複習小筆記</h3>
+          <button type="button" class="btn btn-primary" onclick="restartAdventure()">重新挑戰冒險</button>
+        </div>
+        <div class="review-list" id="review-list"></div>
+      </div>
+    </section>
+
+    <footer class="source-note">
+      題庫內容取材自《世界風情速查》二十題精選 · 專為國小四年級家鄉與世界文化練習設計
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+
+  <script>
+    /* ================= 1. QUESTION BANK (All 20 exact items from 世界風情速查) ================= */
+    const QUESTION_BANK = [
+      {
+        id: 1,
+        topic: `家鄉特色`,
+        question: `在介紹家鄉特色時，下列何者是適合說明的內容面向？`,
+        correct: `風景名勝與地方特產`,
+        distractors: [`個人的私密日記`, `數學算式的解法`, `班級的打掃分工`]
+      },
+      {
+        id: 2,
+        topic: `泰國文化`,
+        question: `被稱為「千佛之國」的泰國，當地信奉佛教的男子通常會有什麼特殊的文化傳統？`,
+        correct: `都要出家當和尚一段時間`,
+        distractors: [`每天都要參加滑雪比賽`, `必須住在冰塊堆砌的冰屋中`, `每天都要在河上建造風車`]
+      },
+      {
+        id: 3,
+        topic: `泰國生活`,
+        question: `泰國著名的「水上市場」，其主要的生意往來通常從什麼時間開始？`,
+        correct: `清晨五點`,
+        distractors: [`中午十二點`, `下午五點`, `深夜十二點`]
+      },
+      {
+        id: 4,
+        topic: `埃及地理`,
+        question: `埃及被譽為五千年古國，其大部分國土屬於何種地形氣候？`,
+        correct: `乾熱的沙漠`,
+        distractors: [`寒冷的冰原`, `潮濕的熱帶雨林`, `高海拔的草原`]
+      },
+      {
+        id: 5,
+        topic: `埃及河川`,
+        question: `埃及首都開羅旁有一條緩緩流過的重要河流，為當地南北土地帶來水量，這條河流是哪一條？`,
+        correct: `尼羅河`,
+        distractors: [`多瑙河`, `亞馬遜河`, `密西西比河`]
+      },
+      {
+        id: 6,
+        topic: `荷蘭建築`,
+        question: `荷蘭因為地勢低窪，當初為了將水排水出海而建造了什麼特殊建築？`,
+        correct: `風車`,
+        distractors: [`莫札特音樂廳`, `人字形連通橋`, `獅身人面像`]
+      },
+      {
+        id: 7,
+        topic: `荷蘭花卉`,
+        question: `被稱為「花之王國」的荷蘭，當地人們喜歡種植哪些知名的特產花卉？`,
+        correct: `鬱金香與水仙`,
+        distractors: [`櫻花與桃花`, `玫瑰與百合`, `向日葵與菊花`]
+      },
+      {
+        id: 8,
+        topic: `荷蘭服飾`,
+        question: `荷蘭因為土地多低於海平面且水氣重，當地人在地面上行走時最適合穿著什麼鞋子？`,
+        correct: `木頭做的木鞋`,
+        distractors: [`玻璃做的舞鞋`, `溜冰鞋`, `高跟鞋`]
+      },
+      {
+        id: 9,
+        topic: `奧地利音樂`,
+        question: `被稱為「音樂國度」的奧地利，歷史上有許多著名的音樂家曾在此居住，例如下列哪一位？`,
+        correct: `莫札特`,
+        distractors: [`哥倫布`, `安徒生`, `愛迪生`]
+      },
+      {
+        id: 10,
+        topic: `寫作技巧`,
+        question: `在描寫家鄉特色文章時，段落開頭與結尾常使用的邀請句式是什麼？`,
+        correct: `請到我的家鄉來`,
+        distractors: [`請幫我寫作業`, `請打開課本第九頁`, `請安靜聽老師說話`]
+      },
+      {
+        id: 11,
+        topic: `臺灣地標`,
+        question: `位於臺北市的台北101大樓，其外形層層向上開展，像什麼植物一樣代表「節節高升」？`,
+        correct: `竹子`,
+        distractors: [`榕樹`, `仙人掌`, `柳樹`]
+      },
+      {
+        id: 12,
+        topic: `臺灣地標`,
+        question: `台北101大樓外層裝飾有巨大的圖案，代表它是重要的「金融中心」，這是什麼圖案？`,
+        correct: `古錢圖案`,
+        distractors: [`魚骨圖案`, `車輪圖案`, `星星圖案`]
+      },
+      {
+        id: 13,
+        topic: `臺灣建築`,
+        question: `台北101大樓內部安裝了什麼裝置，用來減緩地震與強風造成的搖晃？`,
+        correct: `阻尼器`,
+        distractors: [`發射器`, `抽水機`, `太陽能板`]
+      },
+      {
+        id: 14,
+        topic: `日本建築`,
+        question: `西元2012年完工的東京晴空塔，最初興建的主要目的是什麼？`,
+        correct: `改善城市收訊不良`,
+        distractors: [`舉辦水上展覽`, `當作養蠶場所`, `存放大量糧食`]
+      },
+      {
+        id: 15,
+        topic: `日本建築`,
+        question: `東京晴空塔的建築底部與往上轉變的形狀分別是什麼？`,
+        correct: `底部為三角形，往上轉為圓形`,
+        distractors: [`底部為正方形，往上轉為八角形`, `底部為圓形，往上轉為梯形`, `底部為六角形，往上轉為星形`]
+      },
+      {
+        id: 16,
+        topic: `馬來西亞`,
+        question: `吉隆坡的雙峰塔在四十一與四十二層樓之間，有一座方便人們往來的特殊設施，它是什麼？`,
+        correct: `長五十八公尺的人字形連通橋`,
+        distractors: [`巨大的風車扇葉`, `圓形的冰塊走廊`, `木頭做的排水堤防`]
+      },
+      {
+        id: 17,
+        topic: `極地民居`,
+        question: `因紐特人居住的「冰屋」，主要是利用何種材料的特性來隔絕外面的冷空氣？`,
+        correct: `雪是極好的絕緣絕熱材料`,
+        distractors: [`木頭容易吸收熱氣`, `羊毛氈可以透光通風`, `鋼骨可以減少碳排放`]
+      },
+      {
+        id: 18,
+        topic: `草原民居`,
+        question: `蒙古族牧民居住的傳統帳幕「蒙古包」，其圍裹結構主要使用的是什麼材料？`,
+        correct: `羊毛氈`,
+        distractors: [`冰塊`, `塑膠布`, `磚塊`]
+      },
+      {
+        id: 19,
+        topic: `異國美食`,
+        question: `西班牙語中「墨西哥捲餅」的意思是指「小毛驢」，其名稱由來可能與什麼有關？`,
+        correct: `外觀與驢子背負的行李相似`,
+        distractors: [`裡面包著毛驢肉`, `是專門餵食小毛驢的飼料`, `廚師騎著小毛驢來送餐`]
+      },
+      {
+        id: 20,
+        topic: `高雄地標`,
+        question: `高雄巨蛋是採用鋼骨構造以減少碳排放量的多功能場館，其簡稱「巨蛋」最初是因為建築外形像什麼？`,
+        correct: `一顆大型的蛋`,
+        distractors: [`一節一節的竹子`, `長頸鹿的脖子`, `高高的燈塔`]
+      }
+    ];
+
+    /* ================= 2. MONSTERS & SHOP ITEMS ================= */
+    const STAGES = [
+      { id: 1, key: `wolf`, name: `調皮野狼`, maxHp: 50, atk: 12, hitGold: 15, clearGold: 25 },
+      { id: 2, key: `scorpion`, name: `紫晶毒蠍`, maxHp: 75, atk: 16, hitGold: 18, clearGold: 30 },
+      { id: 3, key: `oni`, name: `森林惡鬼`, maxHp: 100, atk: 20, hitGold: 20, clearGold: 35 },
+      { id: 4, key: `dragon`, name: `火焰巨龍`, maxHp: 130, atk: 25, hitGold: 25, clearGold: 45 },
+      { id: 5, key: `demon`, name: `闇影魔王`, maxHp: 160, atk: 30, hitGold: 30, clearGold: 60 }
+    ];
+
+    const SHOP_ITEMS = [
+      {
+        id: `potion`,
+        name: `回血藥水`,
+        price: 25,
+        desc: `草莓藥草調配的暖暖藥水，使用後立刻恢復 45 點生命值（上限 100 HP）。`,
+        maxCount: 5
+      },
+      {
+        id: `crystal`,
+        name: `攻擊水晶`,
+        price: 40,
+        desc: `閃耀星光的魔法結晶，每購買 1 顆可永久提升魔法攻擊力 +10 ATK！`,
+        maxCount: 5
+      },
+      {
+        id: `revive`,
+        name: `復活符`,
+        price: 55,
+        desc: `守護勇者的神奇護符！當血量歸零時自動發動，恢復 60 HP 繼續戰鬥。`,
+        maxCount: 2
+      }
+    ];
+
+    /* ================= 3. HAND-DRAWN COLORED PENCIL SVG ARTWORK ================= */
+    function getMageSvg(mood) {
+      const isHappy = mood === `happy`;
+      const isHurt = mood === `hurt`;
+      const eyeLeft = isHurt
+        ? `<path d="M74 86 L82 91 L74 96" fill="none" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linecap="round" />`
+        : isHappy
+          ? `<path d="M72 91 Q78 83 84 91" fill="none" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linecap="round" />`
+          : `<circle cx="78" cy="91" r="4.2" fill="var(--pencil-ink)" /><circle cx="79.5" cy="89.5" r="1.4" fill="var(--paper-cream)" />`;
+      const eyeRight = isHurt
+        ? `<path d="M106 86 L98 91 L106 96" fill="none" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linecap="round" />`
+        : isHappy
+          ? `<path d="M96 91 Q102 83 108 91" fill="none" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linecap="round" />`
+          : `<circle cx="102" cy="91" r="4.2" fill="var(--pencil-ink)" /><circle cx="103.5" cy="89.5" r="1.4" fill="var(--paper-cream)" />`;
+      const mouth = isHurt
+        ? `<ellipse cx="90" cy="103" rx="4.5" ry="5.5" fill="var(--oni-skin)" stroke="var(--pencil-ink)" stroke-width="2" />`
+        : isHappy
+          ? `<path d="M82 100 Q90 110 98 100 Z" fill="var(--mage-blush)" stroke="var(--pencil-ink)" stroke-width="2.2" />`
+          : `<path d="M84 101 Q90 107 96 101" fill="none" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linecap="round" />`;
+
+      return `<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g filter="url(#pencil-stroke)">
+          <!-- Ground shadow -->
+          <ellipse cx="88" cy="166" rx="46" ry="9" fill="var(--pencil-ink-soft)" fill-opacity="0.22" />
+          <!-- Boots -->
+          <ellipse cx="73" cy="158" rx="11" ry="7" fill="var(--wood-dark)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+          <ellipse cx="103" cy="158" rx="11" ry="7" fill="var(--wood-dark)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+          <!-- Cloak & Robe -->
+          <path d="M56 154 L66 110 Q90 104 114 110 L124 154 Q90 162 56 154 Z" fill="var(--mage-robe)" stroke="var(--pencil-ink)" stroke-width="2.8" stroke-linejoin="round" />
+          <path d="M56 154 L66 110 Q90 104 114 110 L124 154 Q90 162 56 154 Z" fill="url(#pencil-hatch)" />
+          <!-- Cloak collar & gold star clasp -->
+          <path d="M64 114 Q90 128 116 114 L110 106 Q90 116 70 106 Z" fill="var(--mage-hat)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+          <circle cx="90" cy="117" r="5.5" fill="var(--mage-hat-band)" stroke="var(--pencil-ink)" stroke-width="2" />
+          <!-- Left arm & Magic Star Wand -->
+          <path d="M112 118 L138 106" stroke="var(--mage-robe-dark)" stroke-width="11" stroke-linecap="round" />
+          <path d="M112 118 L138 106" stroke="var(--pencil-ink)" stroke-width="2.5" stroke-linecap="round" fill="none" />
+          <circle cx="139" cy="105" r="7" fill="var(--mage-skin)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+          <line x1="138" y1="122" x2="152" y2="66" stroke="var(--wood-mid)" stroke-width="4.5" stroke-linecap="round" />
+          <line x1="138" y1="122" x2="152" y2="66" stroke="var(--pencil-ink)" stroke-width="2" stroke-linecap="round" />
+          <polygon points="154,48 158,60 170,60 160,67 164,79 154,71 144,79 148,67 138,60 150,60" fill="var(--mage-hat-band)" stroke="var(--pencil-ink)" stroke-width="2.2" stroke-linejoin="round" />
+          <!-- Right arm -->
+          <path d="M66 118 L52 132" stroke="var(--mage-robe)" stroke-width="10" stroke-linecap="round" />
+          <circle cx="51" cy="133" r="6.5" fill="var(--mage-skin)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+          <!-- Head & hair -->
+          <circle cx="90" cy="90" r="28" fill="var(--mage-skin)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+          <path d="M62 84 Q70 64 90 66 Q110 64 118 84 Q106 74 90 78 Q74 74 62 84 Z" fill="var(--mage-hair)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+          <!-- Rosy cheeks -->
+          <ellipse cx="70" cy="98" rx="5.5" ry="3.2" fill="var(--mage-blush)" fill-opacity="0.7" />
+          <ellipse cx="110" cy="98" rx="5.5" ry="3.2" fill="var(--mage-blush)" fill-opacity="0.7" />
+          <!-- Eyes & Mouth -->
+          ${eyeLeft}
+          ${eyeRight}
+          ${mouth}
+          <!-- Pointy Wizard Hat -->
+          <path d="M46 72 Q90 60 134 72 Q112 78 90 77 Q68 78 46 72 Z" fill="var(--mage-hat-dark)" stroke="var(--pencil-ink)" stroke-width="2.6" />
+          <path d="M62 68 L85 20 Q92 14 102 26 L118 68 Q90 63 62 68 Z" fill="var(--mage-hat)" stroke="var(--pencil-ink)" stroke-width="2.8" stroke-linejoin="round" />
+          <path d="M64 64 Q90 58 116 64 L113 55 Q90 50 67 55 Z" fill="var(--mage-hat-band)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+          <circle cx="91" cy="59" r="4" fill="var(--paper-cream)" stroke="var(--pencil-ink)" stroke-width="1.8" />
+        </g>
+      </svg>`;
+    }
+
+    function getMonsterSvg(key) {
+      if (key === `wolf`) {
+        return `<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g filter="url(#pencil-stroke)">
+            <ellipse cx="94" cy="166" rx="50" ry="9" fill="var(--pencil-ink-soft)" fill-opacity="0.22" />
+            <!-- Bushy Tail -->
+            <path d="M126 132 Q165 112 158 84 Q142 96 136 108 Q128 116 122 126 Z" fill="var(--wolf-fur)" stroke="var(--pencil-ink)" stroke-width="2.6" />
+            <path d="M158 84 Q148 92 145 100" stroke="var(--wolf-belly)" stroke-width="5" stroke-linecap="round" />
+            <!-- Legs -->
+            <rect x="66" y="138" width="14" height="24" rx="6" fill="var(--wolf-fur-dark)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <rect x="106" y="138" width="14" height="24" rx="6" fill="var(--wolf-fur-dark)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <!-- Body -->
+            <ellipse cx="94" cy="126" rx="38" ry="28" fill="var(--wolf-fur)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <ellipse cx="86" cy="130" rx="22" ry="19" fill="var(--wolf-belly)" />
+            <!-- Cute leaf scarf -->
+            <path d="M62 104 Q90 116 118 104 Q112 96 90 100 Q68 96 62 104 Z" fill="var(--wolf-scarf)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+            <!-- Head & Ears -->
+            <polygon points="58,64 52,32 76,52" fill="var(--wolf-fur-dark)" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linejoin="round" />
+            <polygon points="106,52 128,32 122,64" fill="var(--wolf-fur-dark)" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linejoin="round" />
+            <ellipse cx="90" cy="78" rx="34" ry="28" fill="var(--wolf-fur)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <ellipse cx="80" cy="88" rx="20" ry="14" fill="var(--wolf-belly)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <!-- Nose & Grin -->
+            <ellipse cx="70" cy="84" rx="6" ry="4.5" fill="var(--pencil-ink)" />
+            <path d="M68 93 Q78 99 88 92" fill="none" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linecap="round" />
+            <polygon points="73,95 76,100 79,95" fill="var(--paper-cream)" stroke="var(--pencil-ink)" stroke-width="1.5" />
+            <!-- Expressive mischievous eyes -->
+            <circle cx="76" cy="72" r="4.5" fill="var(--pencil-ink)" />
+            <circle cx="101" cy="72" r="4.5" fill="var(--pencil-ink)" />
+            <circle cx="77" cy="70.5" r="1.5" fill="var(--paper-cream)" />
+            <circle cx="102" cy="70.5" r="1.5" fill="var(--paper-cream)" />
+            <path d="M68 64 L82 67 M96 67 L110 64" stroke="var(--pencil-ink)" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+        </svg>`;
+      }
+      if (key === `scorpion`) {
+        return `<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g filter="url(#pencil-stroke)">
+            <ellipse cx="92" cy="166" rx="52" ry="9" fill="var(--pencil-ink-soft)" fill-opacity="0.22" />
+            <!-- Segmented Tail -->
+            <path d="M126 122 Q158 106 154 74 Q150 48 124 44" fill="none" stroke="var(--scorpion-dark)" stroke-width="16" stroke-linecap="round" />
+            <path d="M126 122 Q158 106 154 74 Q150 48 124 44" fill="none" stroke="var(--pencil-ink)" stroke-width="2.6" stroke-linecap="round" />
+            <circle cx="154" cy="86" r="9" fill="var(--scorpion-body)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+            <circle cx="146" cy="56" r="8" fill="var(--scorpion-body)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+            <!-- Glowing Stinger Tip -->
+            <path d="M128 42 Q112 36 106 50 Q120 56 128 42 Z" fill="var(--scorpion-tail)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <!-- Legs -->
+            <path d="M66 138 L52 158 M82 142 L74 162 M104 142 L112 162 M120 138 L134 158" stroke="var(--pencil-ink)" stroke-width="4" stroke-linecap="round" />
+            <!-- Body Shell -->
+            <ellipse cx="92" cy="122" rx="40" ry="26" fill="var(--scorpion-body)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <path d="M66 110 Q92 122 118 110" fill="none" stroke="var(--scorpion-dark)" stroke-width="2.5" />
+            <!-- Pincers -->
+            <path d="M58 118 Q32 104 34 84" fill="none" stroke="var(--scorpion-dark)" stroke-width="9" stroke-linecap="round" />
+            <path d="M26 76 Q34 64 42 78 Q34 86 26 76 Z" fill="var(--scorpion-body)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <path d="M110 112 Q128 96 120 78" fill="none" stroke="var(--scorpion-dark)" stroke-width="8" stroke-linecap="round" />
+            <path d="M112 72 Q120 60 128 74 Q120 82 112 72 Z" fill="var(--scorpion-body)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <!-- Eyes & Mouth -->
+            <circle cx="76" cy="116" r="6" fill="var(--paper-cream)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <circle cx="96" cy="116" r="6" fill="var(--paper-cream)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <circle cx="75" cy="116" r="2.8" fill="var(--pencil-ink)" />
+            <circle cx="95" cy="116" r="2.8" fill="var(--pencil-ink)" />
+            <path d="M78 130 Q86 136 94 130" fill="none" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linecap="round" />
+          </g>
+        </svg>`;
+      }
+      if (key === `oni`) {
+        return `<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g filter="url(#pencil-stroke)">
+            <ellipse cx="90" cy="166" rx="48" ry="9" fill="var(--pencil-ink-soft)" fill-opacity="0.22" />
+            <!-- Wooden Club -->
+            <path d="M132 126 L152 62" stroke="var(--wood-dark)" stroke-width="14" stroke-linecap="round" />
+            <path d="M132 126 L152 62" stroke="var(--pencil-ink)" stroke-width="2.8" stroke-linecap="round" />
+            <circle cx="145" cy="78" r="2.5" fill="var(--oni-horn)" />
+            <circle cx="152" cy="92" r="2.5" fill="var(--oni-horn)" />
+            <!-- Feet -->
+            <ellipse cx="72" cy="158" rx="12" ry="7" fill="var(--oni-dark)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <ellipse cx="108" cy="158" rx="12" ry="7" fill="var(--oni-dark)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <!-- Body & Tiger Cloth -->
+            <rect x="58" y="98" width="64" height="54" rx="22" fill="var(--oni-skin)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <path d="M60 132 L120 132 L114 152 L66 152 Z" fill="var(--oni-cloth)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+            <path d="M74 136 L78 148 M92 136 L90 148 M106 136 L102 148" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linecap="round" />
+            <!-- Head & Horns -->
+            <polygon points="66,52 56,28 78,44" fill="var(--oni-horn)" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linejoin="round" />
+            <polygon points="114,52 124,28 102,44" fill="var(--oni-horn)" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linejoin="round" />
+            <circle cx="90" cy="76" r="32" fill="var(--oni-skin)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <!-- Bushy Hair -->
+            <path d="M62 62 Q76 42 90 52 Q104 42 118 62" fill="var(--pencil-ink)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <!-- Face -->
+            <path d="M68 68 L84 73 M96 73 L112 68" stroke="var(--pencil-ink)" stroke-width="3.2" stroke-linecap="round" />
+            <circle cx="77" cy="79" r="4.2" fill="var(--pencil-ink)" />
+            <circle cx="103" cy="79" r="4.2" fill="var(--pencil-ink)" />
+            <path d="M75 93 Q90 86 105 93" fill="none" stroke="var(--pencil-ink)" stroke-width="2.5" stroke-linecap="round" />
+            <polygon points="79,91 82,84 85,91" fill="var(--oni-horn)" stroke="var(--pencil-ink)" stroke-width="1.6" />
+            <polygon points="95,91 98,84 101,91" fill="var(--oni-horn)" stroke="var(--pencil-ink)" stroke-width="1.6" />
+          </g>
+        </svg>`;
+      }
+      if (key === `dragon`) {
+        return `<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g filter="url(#pencil-stroke)">
+            <ellipse cx="92" cy="166" rx="52" ry="9" fill="var(--pencil-ink-soft)" fill-opacity="0.22" />
+            <!-- Wings -->
+            <path d="M108 92 Q156 54 162 88 Q144 96 132 108 Z" fill="var(--dragon-wing)" stroke="var(--pencil-ink)" stroke-width="2.6" />
+            <path d="M72 92 Q24 54 18 88 Q36 96 48 108 Z" fill="var(--dragon-wing)" stroke="var(--pencil-ink)" stroke-width="2.6" />
+            <!-- Tail -->
+            <path d="M120 140 Q158 148 164 122" fill="none" stroke="var(--dragon-scale)" stroke-width="12" stroke-linecap="round" />
+            <path d="M120 140 Q158 148 164 122" fill="none" stroke="var(--pencil-ink)" stroke-width="2.5" stroke-linecap="round" />
+            <!-- Body -->
+            <ellipse cx="90" cy="126" rx="36" ry="32" fill="var(--dragon-scale)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <ellipse cx="86" cy="130" rx="22" ry="24" fill="var(--dragon-belly)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <line x1="68" y1="122" x2="104" y2="122" stroke="var(--dragon-dark)" stroke-width="2" />
+            <line x1="66" y1="134" x2="106" y2="134" stroke="var(--dragon-dark)" stroke-width="2" />
+            <!-- Head & Cute Horns -->
+            <polygon points="72,50 64,26 82,44" fill="var(--dragon-belly)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+            <polygon points="108,50 116,26 98,44" fill="var(--dragon-belly)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+            <ellipse cx="90" cy="74" rx="30" ry="26" fill="var(--dragon-scale)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+            <!-- Snout & Flame puff -->
+            <ellipse cx="78" cy="84" rx="18" ry="12" fill="var(--dragon-wing)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <path d="M48 84 Q34 74 30 88 Q42 94 52 88 Z" fill="var(--dragon-fire)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <circle cx="76" cy="68" r="4.5" fill="var(--demon-eye)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <circle cx="98" cy="68" r="4.5" fill="var(--demon-eye)" stroke="var(--pencil-ink)" stroke-width="2" />
+            <circle cx="75" cy="68" r="1.8" fill="var(--pencil-ink)" />
+            <circle cx="97" cy="68" r="1.8" fill="var(--pencil-ink)" />
+          </g>
+        </svg>`;
+      }
+      /* Stage 5: Demon King */
+      return `<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g filter="url(#pencil-stroke)">
+          <ellipse cx="90" cy="166" rx="54" ry="9" fill="var(--pencil-ink-soft)" fill-opacity="0.24" />
+          <!-- Royal Demon Cape -->
+          <path d="M36 156 L58 84 Q90 76 122 84 L144 156 Q90 166 36 156 Z" fill="var(--demon-cloak)" stroke="var(--pencil-ink)" stroke-width="3" stroke-linejoin="round" />
+          <!-- Armor torso -->
+          <rect x="64" y="96" width="52" height="54" rx="14" fill="var(--demon-armor)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+          <polygon points="90,104 98,118 90,132 82,118" fill="var(--demon-gold)" stroke="var(--pencil-ink)" stroke-width="2" />
+          <!-- Floating Rune Scepter -->
+          <line x1="142" y1="146" x2="142" y2="54" stroke="var(--demon-gold)" stroke-width="5" stroke-linecap="round" />
+          <line x1="142" y1="146" x2="142" y2="54" stroke="var(--pencil-ink)" stroke-width="2" stroke-linecap="round" />
+          <circle cx="142" cy="44" r="12" fill="var(--scorpion-body)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+          <circle cx="142" cy="44" r="5" fill="var(--demon-eye)" />
+          <!-- Head & Crown Horns -->
+          <path d="M58 58 Q42 32 62 22 Q70 38 74 50 Z" fill="var(--demon-gold)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+          <path d="M122 58 Q138 32 118 22 Q110 38 106 50 Z" fill="var(--demon-gold)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+          <circle cx="90" cy="72" r="28" fill="var(--demon-armor)" stroke="var(--pencil-ink)" stroke-width="2.8" />
+          <!-- Crown -->
+          <polygon points="70,50 76,34 90,44 104,34 110,50" fill="var(--demon-gold)" stroke="var(--pencil-ink)" stroke-width="2.4" stroke-linejoin="round" />
+          <!-- Glowing Eyes & Grin -->
+          <path d="M72 68 L84 72 L74 76 Z" fill="var(--demon-eye)" stroke="var(--pencil-ink)" stroke-width="1.5" />
+          <path d="M108 68 L96 72 L106 76 Z" fill="var(--demon-eye)" stroke="var(--pencil-ink)" stroke-width="1.5" />
+          <path d="M78 86 Q90 92 102 86" fill="none" stroke="var(--demon-gold)" stroke-width="2.4" stroke-linecap="round" />
+        </g>
+      </svg>`;
+    }
+
+    function getItemSvg(itemId) {
+      if (itemId === `potion`) {
+        return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g filter="url(#pencil-stroke)">
+            <rect x="33" y="10" width="14" height="10" rx="3" fill="var(--wood-mid)" stroke="var(--pencil-ink)" stroke-width="2.2" />
+            <rect x="31" y="19" width="18" height="10" rx="3" fill="var(--potion-glass)" stroke="var(--pencil-ink)" stroke-width="2.4" />
+            <circle cx="40" cy="48" r="22" fill="var(--potion-glass)" stroke="var(--pencil-ink)" stroke-width="2.6" />
+            <path d="M21 48 A19 19 0 0 0 59 48 Q48 43 40 48 Q32 53 21 48 Z" fill="var(--potion-red)" />
+            <path d="M35 53 C35 48 40 48 40 52 C40 48 45 48 45 53 C45 58 40 62 40 62 C40 62 35 58 35 53 Z" fill="var(--paper-cream)" />
+            <path d="M28 38 Q32 33 38 33" fill="none" stroke="var(--paper-cream)" stroke-width="2.8" stroke-linecap="round" />
+          </g>
+        </svg>`;
+      }
+      if (itemId === `crystal`) {
+        return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g filter="url(#pencil-stroke)">
+            <polygon points="40,10 56,34 50,66 30,66 24,34" fill="var(--crystal-blue)" stroke="var(--pencil-ink)" stroke-width="2.5" stroke-linejoin="round" />
+            <polygon points="40,10 56,34 40,66" fill="var(--crystal-blue-dark)" fill-opacity="0.38" />
+            <polygon points="22,36 30,44 26,64 16,60 14,44" fill="var(--crystal-purple)" stroke="var(--pencil-ink)" stroke-width="2.2" stroke-linejoin="round" />
+            <polygon points="62,38 68,50 62,64 52,64 54,44" fill="var(--crystal-purple)" stroke="var(--pencil-ink)" stroke-width="2.2" stroke-linejoin="round" />
+            <path d="M18 20 L20 26 L26 28 L20 30 L18 36 L16 30 L10 28 L16 26 Z" fill="var(--gold-coin)" stroke="var(--pencil-ink)" stroke-width="1.4" />
+          </g>
+        </svg>`;
+      }
+      return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g filter="url(#pencil-stroke)">
+          <path d="M36 12 Q40 6 44 12" fill="none" stroke="var(--talisman-red)" stroke-width="3" stroke-linecap="round" />
+          <rect x="24" y="14" width="32" height="54" rx="5" fill="var(--talisman-paper)" stroke="var(--pencil-ink)" stroke-width="2.5" />
+          <rect x="29" y="19" width="22" height="44" rx="3" fill="none" stroke="var(--talisman-red)" stroke-width="1.8" />
+          <polygon points="40,26 44,35 53,35 46,41 48,50 40,45 32,50 34,41 27,35 36,35" fill="var(--gold-coin)" stroke="var(--pencil-ink)" stroke-width="1.8" />
+          <circle cx="40" cy="56" r="4.5" fill="var(--talisman-red)" />
+        </g>
+      </svg>`;
+    }
+
+    /* ================= 4. GAME STATE & AUDIO SYNTHESIS ================= */
+    const DEFAULT_STATE = {
+      scene: `battle`, // 'battle' | 'shop' | 'result'
+      stageIndex: 0,
+      hp: 100,
+      maxHp: 100,
+      baseAtk: 25,
+      gold: 0,
+      potions: 0,
+      crystals: 0,
+      revives: 0,
+      monsterHp: 50,
+      answeredCount: 0,
+      correctCount: 0,
+      soundEnabled: true,
+      questionQueue: [],
+      currentQuestion: null,
+      turnResolved: false,
+      lastTurnOutcome: null, // { isCorrect, chosen, dmg, goldEarned, monsterDmg, revived }
+      mistakes: [], // { question, correct, chosen }
+      victory: false
+    };
+
+    let gameState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    let audioCtx = null;
+
+    function shuffleArray(arr) {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = tmp;
+      }
+      return copy;
+    }
+
+    function buildQuestionInstance(qObj) {
+      const allOptions = shuffleArray([qObj.correct].concat(qObj.distractors));
+      return {
+        id: qObj.id,
+        topic: qObj.topic,
+        question: qObj.question,
+        correct: qObj.correct,
+        options: allOptions
+      };
+    }
+
+    function drawNextQuestion() {
+      if (!Array.isArray(gameState.questionQueue) || gameState.questionQueue.length === 0) {
+        const ids = shuffleArray(QUESTION_BANK.map(function (q) { return q.id; }));
+        gameState.questionQueue = ids;
+      }
+      const nextId = gameState.questionQueue.shift();
+      const found = QUESTION_BANK.find(function (q) { return q.id === nextId; }) || QUESTION_BANK[0];
+      gameState.currentQuestion = buildQuestionInstance(found);
+      gameState.turnResolved = false;
+      gameState.lastTurnOutcome = null;
+    }
+
+    function playTone(type) {
+      if (!gameState.soundEnabled) return;
+      try {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtor) return;
+        if (!audioCtx) audioCtx = new AudioCtor();
+        if (audioCtx.state === `suspended`) audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        if (type === `hit`) {
+          osc.type = `triangle`;
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.14);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc.start(now);
+          osc.stop(now + 0.23);
+        } else if (type === `hurt`) {
+          osc.type = `sawtooth`;
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(130, now + 0.18);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc.start(now);
+          osc.stop(now + 0.23);
+        } else if (type === `heal` || type === `buy`) {
+          osc.type = `sine`;
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.16);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === `win`) {
+          osc.type = `triangle`;
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.1);
+          osc.frequency.setValueAtTime(783.99, now + 0.2);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+          osc.start(now);
+          osc.stop(now + 0.44);
+        }
+      } catch (e) {
+        /* Ignore audio context restrictions */
+      }
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(gameState);
+        } catch (e) {
+          /* Ignore persistence errors gracefully */
+        }
+      }
+    }
+
+    function getPlayerAtk() {
+      return gameState.baseAtk + gameState.crystals * 10;
+    }
+
+    /* ================= 5. RENDERING ================= */
+    function renderStageStrip() {
+      const container = document.getElementById(`stage-nodes`);
+      if (!container) return;
+      container.innerHTML = STAGES.map(function (st, idx) {
+        let cls = `stage-pill`;
+        let prefix = `${st.id}. `;
+        if (gameState.scene === `result` && gameState.victory) {
+          cls += ` is-done`;
+          prefix = `✓ `;
+        } else if (idx < gameState.stageIndex) {
+          cls += ` is-done`;
+          prefix = `✓ `;
+        } else if (idx === gameState.stageIndex && gameState.scene !== `result`) {
+          cls += ` is-active`;
+        }
+        return `<span class="${cls}">${prefix}${st.name}</span>`;
+      }).join(``);
+    }
+
+    function renderHud() {
+      const hpPct = Math.max(0, Math.min(100, Math.round((gameState.hp / gameState.maxHp) * 100)));
+      const hpText = document.getElementById(`hud-hp-text`);
+      const hpFill = document.getElementById(`hud-hp-fill`);
+      const hpWrap = document.getElementById(`hud-hp-bar-wrap`);
+      if (hpText) hpText.textContent = `${gameState.hp} / ${gameState.maxHp}`;
+      if (hpFill) {
+        hpFill.style.width = `${hpPct}%`;
+        hpFill.className = hpPct > 35 ? `hp-bar-fill is-healthy` : `hp-bar-fill`;
+      }
+      if (hpWrap) hpWrap.setAttribute(`aria-valuenow`, String(gameState.hp));
+
+      const atkEl = document.getElementById(`hud-atk-text`);
+      const crysEl = document.getElementById(`hud-crystal-badge`);
+      if (atkEl) atkEl.textContent = `${getPlayerAtk()} ATK`;
+      if (crysEl) crysEl.textContent = `水晶 ×${gameState.crystals}`;
+
+      const goldEl = document.getElementById(`hud-gold-text`);
+      const corrEl = document.getElementById(`hud-correct-text`);
+      if (goldEl) goldEl.textContent = String(gameState.gold);
+      if (corrEl) corrEl.textContent = `答對 ${gameState.correctCount} 題`;
+
+      const potEl = document.getElementById(`hud-potion-count`);
+      const revEl = document.getElementById(`hud-revive-count`);
+      const potBtn = document.getElementById(`use-potion-hud-btn`);
+      if (potEl) potEl.textContent = String(gameState.potions);
+      if (revEl) revEl.textContent = String(gameState.revives);
+      if (potBtn) {
+        potBtn.disabled = gameState.potions <= 0 || gameState.hp >= gameState.maxHp || gameState.scene === `result`;
+      }
+
+      const soundBtn = document.getElementById(`sound-toggle-btn`);
+      if (soundBtn) {
+        soundBtn.textContent = gameState.soundEnabled ? `音效：開啟` : `音效：關閉`;
+        soundBtn.setAttribute(`aria-pressed`, gameState.soundEnabled ? `true` : `false`);
+      }
+    }
+
+    function renderBattle() {
+      const stage = STAGES[gameState.stageIndex] || STAGES[0];
+      const playerPct = Math.max(0, Math.min(100, Math.round((gameState.hp / gameState.maxHp) * 100)));
+      const monsterPct = Math.max(0, Math.min(100, Math.round((gameState.monsterHp / stage.maxHp) * 100)));
+
+      const pHpLabel = document.getElementById(`arena-player-hp-label`);
+      const pHpBar = document.getElementById(`arena-player-hp-bar`);
+      if (pHpLabel) pHpLabel.textContent = `${gameState.hp} / ${gameState.maxHp} HP`;
+      if (pHpBar) {
+        pHpBar.style.width = `${playerPct}%`;
+        pHpBar.className = playerPct > 35 ? `hp-bar-fill is-healthy` : `hp-bar-fill`;
+      }
+
+      const mName = document.getElementById(`monster-name-label`);
+      const mHpLabel = document.getElementById(`monster-hp-label`);
+      const mHpBar = document.getElementById(`monster-hp-bar`);
+      const mAtkHint = document.getElementById(`monster-atk-hint`);
+      if (mName) mName.textContent = `第 ${stage.id} 關：${stage.name}`;
+      if (mHpLabel) mHpLabel.textContent = `${gameState.monsterHp} / ${stage.maxHp} HP`;
+      if (mHpBar) mHpBar.style.width = `${monsterPct}%`;
+      if (mAtkHint) mAtkHint.textContent = `怪物攻擊力：${stage.atk} 點`;
+
+      const mageWrap = document.getElementById(`mage-actor-wrap`);
+      const monsterWrap = document.getElementById(`monster-actor-wrap`);
+      const mageMood = gameState.lastTurnOutcome && !gameState.lastTurnOutcome.isCorrect ? `hurt` : `normal`;
+      if (mageWrap) mageWrap.innerHTML = getMageSvg(mageMood);
+      if (monsterWrap) monsterWrap.innerHTML = getMonsterSvg(stage.key);
+
+      if (!gameState.currentQuestion) drawNextQuestion();
+      const q = gameState.currentQuestion;
+      const progBadge = document.getElementById(`quiz-progress-badge`);
+      const qText = document.getElementById(`question-text`);
+      const optGrid = document.getElementById(`options-grid`);
+      if (progBadge) progBadge.textContent = `${q.topic} · 第 ${gameState.answeredCount + (gameState.turnResolved ? 0 : 1)} 題`;
+      if (qText) qText.textContent = q.question;
+
+      const letters = [`A`, `B`, `C`, `D`];
+      if (optGrid) {
+        optGrid.innerHTML = q.options.map(function (opt, idx) {
+          let cls = `option-btn`;
+          if (gameState.turnResolved && gameState.lastTurnOutcome) {
+            if (opt === q.correct) cls += ` is-correct`;
+            else if (opt === gameState.lastTurnOutcome.chosen && !gameState.lastTurnOutcome.isCorrect) cls += ` is-wrong`;
+          }
+          const disabledAttr = gameState.turnResolved ? `disabled` : ``;
+          return `<button type="button" class="${cls}" ${disabledAttr} onclick="selectOption(${idx})">
+            <span class="option-key">${letters[idx]}</span>
+            <span>${opt}</span>
+          </button>`;
+        }).join(``);
+      }
+
+      const fbBox = document.getElementById(`feedback-box`);
+      const fbTitle = document.getElementById(`feedback-title`);
+      const fbDetail = document.getElementById(`feedback-detail`);
+      const nextBtn = document.getElementById(`next-turn-btn`);
+
+      if (fbBox && fbTitle && fbDetail && nextBtn) {
+        if (gameState.turnResolved && gameState.lastTurnOutcome) {
+          const out = gameState.lastTurnOutcome;
+          fbBox.className = `feedback-box is-visible`;
+          if (out.isCorrect) {
+            fbTitle.textContent = gameState.monsterHp <= 0 ? `太棒了！打倒了${stage.name}！` : `答對了！魔法命中目標！`;
+            fbDetail.textContent = `造成 ${out.dmg} 點傷害，獲得 +${out.goldEarned} 金幣${gameState.monsterHp <= 0 ? `（外加過關賞金 +${stage.clearGold} 金幣）` : ``}！`;
+            nextBtn.textContent = gameState.monsterHp <= 0
+              ? (gameState.stageIndex >= STAGES.length - 1 ? `前往勝利結算 →` : `進入木造商店 →`)
+              : `下一題 →`;
+          } else if (out.revived) {
+            fbBox.classList.add(`is-revive`);
+            fbTitle.textContent = `答錯了，但「復活符」發動保護了你！`;
+            fbDetail.textContent = `正確答案是「${q.correct}」。生命值恢復至 60 HP，繼續加油！`;
+            nextBtn.textContent = `繼續戰鬥 →`;
+          } else {
+            fbBox.classList.add(`is-error`);
+            fbTitle.textContent = gameState.hp <= 0 ? `答錯了，魔法師體力歸零…` : `答錯了！受到${stage.name} ${out.monsterDmg} 點反擊。`;
+            fbDetail.textContent = `正確答案是：「${q.correct}」`;
+            nextBtn.textContent = gameState.hp <= 0 ? `查看試煉結算 →` : `下一題 →`;
+          }
+        } else {
+          fbBox.className = `feedback-box`;
+        }
+      }
+    }
+
+    function renderShop() {
+      const prevStage = STAGES[gameState.stageIndex] || STAGES[0];
+      const nextStage = STAGES[gameState.stageIndex + 1] || STAGES[STAGES.length - 1];
+
+      const mageShop = document.getElementById(`shop-mage-wrap`);
+      if (mageShop) mageShop.innerHTML = getMageSvg(`happy`);
+
+      const shopTitle = document.getElementById(`shop-title`);
+      const shopSub = document.getElementById(`shop-subtitle`);
+      if (shopTitle) shopTitle.textContent = `恭喜通過第 ${prevStage.id} 關！歡迎來到森林木造商店`;
+      if (shopSub) shopSub.textContent = `剛才打倒了「${prevStage.name}」，下一關將遇到「${nextStage.name}（${nextStage.maxHp} HP / ${nextStage.atk} ATK）」，快補強裝備吧！`;
+
+      const grid = document.getElementById(`shop-items-grid`);
+      if (grid) {
+        grid.innerHTML = SHOP_ITEMS.map(function (item) {
+          const owned = item.id === `potion` ? gameState.potions : item.id === `crystal` ? gameState.crystals : gameState.revives;
+          const maxed = owned >= item.maxCount;
+          const canAfford = gameState.gold >= item.price;
+          const btnText = maxed ? `已達攜帶上限` : canAfford ? `購買道具` : `金幣不足`;
+          return `<article class="shop-item-card">
+            <div class="shop-item-top">
+              <div class="item-icon-box">${getItemSvg(item.id)}</div>
+              <div>
+                <h3 class="item-title">${item.name}</h3>
+                <div class="item-owned">目前持有：${owned} / ${item.maxCount}</div>
+              </div>
+            </div>
+            <p class="item-desc">${item.desc}</p>
+            <div class="shop-item-footer">
+              <span class="price-tag">${item.price} 金幣</span>
+              <button type="button" class="btn btn-primary btn-sm" ${maxed || !canAfford ? `disabled` : ``} onclick="buyItem('${item.id}')">${btnText}</button>
+            </div>
+          </article>`;
+        }).join(``);
+      }
+
+      const summary = document.getElementById(`shop-status-summary`);
+      if (summary) summary.textContent = `HP ${gameState.hp}/${gameState.maxHp} · ${getPlayerAtk()} ATK · ${gameState.gold} 金幣`;
+
+      const drinkBtn = document.getElementById(`shop-drink-potion-btn`);
+      if (drinkBtn) drinkBtn.disabled = gameState.potions <= 0 || gameState.hp >= gameState.maxHp;
+
+      const nextStageBtn = document.getElementById(`shop-next-stage-btn`);
+      if (nextStageBtn) nextStageBtn.textContent = `出發第 ${nextStage.id} 關：挑戰${nextStage.name} →`;
+    }
+
+    function renderResult() {
+      const hero = document.getElementById(`result-hero`);
+      const avatar = document.getElementById(`result-avatar`);
+      const badge = document.getElementById(`result-badge`);
+      const title = document.getElementById(`result-title`);
+      const desc = document.getElementById(`result-desc`);
+      const statsGrid = document.getElementById(`result-stats-grid`);
+      const reviewList = document.getElementById(`review-list`);
+
+      const accuracy = gameState.answeredCount > 0 ? Math.round((gameState.correctCount / gameState.answeredCount) * 100) : 0;
+
+      if (hero) {
+        hero.className = gameState.victory ? `result-hero is-victory` : `result-hero is-defeat`;
+      }
+      if (avatar) {
+        avatar.innerHTML = getMageSvg(gameState.victory ? `happy` : `hurt`);
+      }
+      if (badge) {
+        badge.textContent = gameState.victory
+          ? (accuracy >= 90 ? `稱號：世界風情大魔導士` : `稱號：博學冒險勇者`)
+          : `冒險暫時中止 · 再接再厲`;
+      }
+      if (title) {
+        title.textContent = gameState.victory ? `試煉完全通關！魔王已伏誅！` : `哎呀！魔法師體力用盡了`;
+      }
+      if (desc) {
+        desc.textContent = gameState.victory
+          ? `你成功通過五道奇幻試煉，把《世界風情速查》的知識化為最強魔法！`
+          : `在第 ${gameState.stageIndex + 1} 關倒下了別氣餒，看看底下的錯題筆記，再挑戰一次一定能過關！`;
+      }
+
+      if (statsGrid) {
+        const clearedCount = gameState.victory ? STAGES.length : gameState.stageIndex;
+        statsGrid.innerHTML = `
+          <div class="stat-tile"><span class="hud-label">通過關卡</span><span class="stat-tile-num">${clearedCount} / ${STAGES.length} 關</span></div>
+          <div class="stat-tile"><span class="hud-label">答對題數</span><span class="stat-tile-num">${gameState.correctCount} / ${gameState.answeredCount} 題</span></div>
+          <div class="stat-tile"><span class="hud-label">答題正確率</span><span class="stat-tile-num">${accuracy}%</span></div>
+          <div class="stat-tile"><span class="hud-label">剩餘血量與金幣</span><span class="stat-tile-num">${gameState.hp} HP · ${gameState.gold} 幣</span></div>
+        `;
+      }
+
+      if (reviewList) {
+        if (gameState.mistakes.length === 0) {
+          reviewList.innerHTML = `<div class="review-item"><strong>全題完美答對！</strong><span>這趟試煉中沒有任何答錯的題目，你對世界風情非常熟悉喔！</span></div>`;
+        } else {
+          reviewList.innerHTML = gameState.mistakes.map(function (m, i) {
+            return `<div class="review-item">
+              <strong>錯題 ${i + 1}：${m.question}</strong>
+              <span>你的作答：${m.chosen}</span>
+              <span class="review-answer">正確答案：${m.correct}</span>
+            </div>`;
+          }).join(``);
+        }
+      }
+    }
+
+    function renderAll() {
+      const battleSec = document.getElementById(`scene-battle`);
+      const shopSec = document.getElementById(`scene-shop`);
+      const resultSec = document.getElementById(`scene-result`);
+
+      if (battleSec) battleSec.classList.toggle(`is-visible`, gameState.scene === `battle`);
+      if (shopSec) shopSec.classList.toggle(`is-visible`, gameState.scene === `shop`);
+      if (resultSec) resultSec.classList.toggle(`is-visible`, gameState.scene === `result`);
+
+      renderStageStrip();
+      renderHud();
+
+      if (gameState.scene === `battle`) renderBattle();
+      else if (gameState.scene === `shop`) renderShop();
+      else renderResult();
+    }
+
+    /* ================= 6. INTERACTIVE ACTIONS (Hoisted functions) ================= */
+    function triggerFloatingFx(elId, text, typeClass) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      el.textContent = text;
+      el.className = `floating-fx ${typeClass} is-shown`;
+      setTimeout(function () {
+        const target = document.getElementById(elId);
+        if (target) target.classList.remove(`is-shown`);
+      }, 950);
+    }
+
+    function selectOption(optionIndex) {
+      if (gameState.scene !== `battle` || gameState.turnResolved || !gameState.currentQuestion) return;
+      const q = gameState.currentQuestion;
+      const chosen = q.options[optionIndex];
+      const stage = STAGES[gameState.stageIndex] || STAGES[0];
+      const isCorrect = chosen === q.correct;
+
+      gameState.answeredCount += 1;
+      gameState.turnResolved = true;
+
+      if (isCorrect) {
+        const dmg = getPlayerAtk();
+        gameState.correctCount += 1;
+        gameState.monsterHp = Math.max(0, gameState.monsterHp - dmg);
+        gameState.gold += stage.hitGold;
+        if (gameState.monsterHp <= 0) {
+          gameState.gold += stage.clearGold;
+          playTone(`win`);
+        } else {
+          playTone(`hit`);
+        }
+        gameState.lastTurnOutcome = {
+          isCorrect: true,
+          chosen: chosen,
+          dmg: dmg,
+          goldEarned: stage.hitGold,
+          monsterDmg: 0,
+          revived: false
+        };
+
+        renderAll();
+        const mageWrap = document.getElementById(`mage-actor-wrap`);
+        const monWrap = document.getElementById(`monster-actor-wrap`);
+        if (mageWrap) mageWrap.classList.add(`is-attack-right`);
+        if (monWrap) monWrap.classList.add(`is-monster-hurt`);
+        triggerFloatingFx(`monster-fx`, `-${dmg} HP · +${stage.hitGold}幣`, `is-dmg`);
+        setTimeout(function () {
+          const mw = document.getElementById(`mage-actor-wrap`);
+          const mn = document.getElementById(`monster-actor-wrap`);
+          if (mw) mw.classList.remove(`is-attack-right`);
+          if (mn) mn.classList.remove(`is-monster-hurt`);
+        }, 320);
+      } else {
+        let revived = false;
+        gameState.hp = Math.max(0, gameState.hp - stage.atk);
+        gameState.mistakes.push({
+          question: q.question,
+          correct: q.correct,
+          chosen: chosen
+        });
+
+        if (gameState.hp <= 0 && gameState.revives > 0) {
+          gameState.revives -= 1;
+          gameState.hp = 60;
+          revived = true;
+          playTone(`heal`);
+        } else {
+          playTone(`hurt`);
+        }
+
+        gameState.lastTurnOutcome = {
+          isCorrect: false,
+          chosen: chosen,
+          dmg: 0,
+          goldEarned: 0,
+          monsterDmg: stage.atk,
+          revived: revived
+        };
+
+        renderAll();
+        const mageWrap = document.getElementById(`mage-actor-wrap`);
+        const monWrap = document.getElementById(`monster-actor-wrap`);
+        if (monWrap) monWrap.classList.add(`is-attack-left`);
+        if (mageWrap) mageWrap.classList.add(revived ? `is-heal` : `is-hurt`);
+        triggerFloatingFx(`player-fx`, revived ? `復活符 +60 HP` : `-${stage.atk} HP`, revived ? `is-heal` : `is-player-dmg`);
+        setTimeout(function () {
+          const mw = document.getElementById(`mage-actor-wrap`);
+          const mn = document.getElementById(`monster-actor-wrap`);
+          if (mw) mw.classList.remove(`is-hurt`, `is-heal`);
+          if (mn) mn.classList.remove(`is-attack-left`);
+        }, 340);
+      }
+
+      persistState();
+    }
+
+    function advanceTurn() {
+      if (gameState.scene !== `battle`) return;
+
+      if (gameState.hp <= 0) {
+        gameState.scene = `result`;
+        gameState.victory = false;
+        renderAll();
+        persistState();
+        return;
+      }
+
+      if (gameState.monsterHp <= 0) {
+        if (gameState.stageIndex >= STAGES.length - 1) {
+          gameState.scene = `result`;
+          gameState.victory = true;
+          playTone(`win`);
+        } else {
+          gameState.scene = `shop`;
+        }
+        renderAll();
+        persistState();
+        return;
+      }
+
+      drawNextQuestion();
+      renderAll();
+      persistState();
+    }
+
+    function buyItem(itemId) {
+      if (gameState.scene !== `shop`) return;
+      const item = SHOP_ITEMS.find(function (i) { return i.id === itemId; });
+      if (!item || gameState.gold < item.price) return;
+
+      if (itemId === `potion` && gameState.potions < item.maxCount) {
+        gameState.gold -= item.price;
+        gameState.potions += 1;
+      } else if (itemId === `crystal` && gameState.crystals < item.maxCount) {
+        gameState.gold -= item.price;
+        gameState.crystals += 1;
+      } else if (itemId === `revive` && gameState.revives < item.maxCount) {
+        gameState.gold -= item.price;
+        gameState.revives += 1;
+      } else {
+        return;
+      }
+
+      playTone(`buy`);
+      renderAll();
+      persistState();
+    }
+
+    function usePotion() {
+      if (gameState.potions <= 0 || gameState.hp >= gameState.maxHp || gameState.scene === `result`) return;
+      gameState.potions -= 1;
+      const prevHp = gameState.hp;
+      gameState.hp = Math.min(gameState.maxHp, gameState.hp + 45);
+      const healed = gameState.hp - prevHp;
+      playTone(`heal`);
+      renderAll();
+      if (gameState.scene === `battle`) {
+        const mageWrap = document.getElementById(`mage-actor-wrap`);
+        if (mageWrap) mageWrap.classList.add(`is-heal`);
+        triggerFloatingFx(`player-fx`, `+${healed} HP`, `is-heal`);
+        setTimeout(function () {
+          const mw = document.getElementById(`mage-actor-wrap`);
+          if (mw) mw.classList.remove(`is-heal`);
+        }, 380);
+      }
+      persistState();
+    }
+
+    function enterNextStage() {
+      if (gameState.scene !== `shop`) return;
+      if (gameState.stageIndex < STAGES.length - 1) {
+        gameState.stageIndex += 1;
+      }
+      const nextStage = STAGES[gameState.stageIndex];
+      gameState.monsterHp = nextStage.maxHp;
+      gameState.scene = `battle`;
+      drawNextQuestion();
+      renderAll();
+      persistState();
+    }
+
+    function toggleSound() {
+      gameState.soundEnabled = !gameState.soundEnabled;
+      renderHud();
+      persistState();
+    }
+
+    function handleResetClick(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `確定重新開始？`;
+        setTimeout(function () {
+          if (btn && btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `重新冒險`;
+          }
+        }, 3200);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `重新冒險`;
+      restartAdventure();
+    }
+
+    function restartAdventure() {
+      const keepSound = gameState.soundEnabled;
+      gameState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+      gameState.soundEnabled = keepSound;
+      gameState.monsterHp = STAGES[0].maxHp;
+      drawNextQuestion();
+      renderAll();
+      persistState();
+    }
+
+    /* ================= 7. INITIALIZATION ================= */
+    async function initGame() {
+      let restored = null;
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          restored = await window.notebookAppApi.getAppState();
+        } catch (e) {
+          restored = null;
+        }
+      }
+
+      if (restored && typeof restored === `object` && typeof restored.stageIndex === `number`) {
+        gameState = Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), restored);
+      } else {
+        gameState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+        gameState.monsterHp = STAGES[0].maxHp;
+        drawNextQuestion();
+      }
+
+      renderAll();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initGame);
+  </script>
+</body>
+</html>
